@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OvoFácil - App para Vender Ovos</title>
+    <link rel="stylesheet" href="/assets/styles/index.css">
+</head>
+<body>
+    <header>
+        <h1>🛒 OvoFácil - Ovos Fresquinhos na sua porta!</h1>
+    </header>
+
+    <main>
+        <section class="produtos">
+            <div class="card">
+                <img src="./assets/images/ovo vermelho.webp" alt="Ovo Vermelho">
+                <h3>Ovo Vermelho Caipira</h3>
+                <p>Dúzia de ovos frescos do interior.</p>
+                <div class="preco">R$ 5,00</div>
+                <button class="btn" onclick="adicionarAoCarrinho('Ovo Marrom Gourmet', 7.00)">Adicionar ao Carrinho</button>
+            </div>
+        </section>
+    </main>
+
+    <button id="toggle-carrinho" onclick="toggleCarrinho()">🛒</button>
+
+    <div id="carrinho">
+        <h2>Carrinho de Compras</h2>
+        <div id="itens-carrinhos"></div>
+        <div id="subtotal">Subtotal: R$ 0,00</div>
+        <button class="btn" onclick="finalizarCompra()" style="width: 100%; margin-top: 1rem;">Finalizar Compra</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 OvoFácil. Contato: oi@ovofacil.com | Termos de Uso</p>
+    </footer>
+
+    <script>
+        // JS Simples para o Carrinho
+        let carrinho = [];
+
+        function adicionarAoCarrinho(nome, preco) {
+            carrinho.push({ nome, preco });
+            atualizarCarrinho();
+            alert(`${nome} adicionado!`);
+        }
+
+        function atualizarCarrinho() {
+            const itensDiv = document.getElementById('itens-carrinho');
+            const subtotalDiv = document.getElementById('subtotal');
+            itensDiv.innerHTML = '';
+            let total = 0;
+            carrinho.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item-carrinho';
+                itemDiv.innerHTML = `<span>${item.nome}</span><span>R$ ${item.preco.toFixed(2)}</span><button onclick="removerDoCarrinho(${index})" style="background:red;color:white;border:none;padding:0.2rem 0.5rem;border-radius:3px;">Remover</button>`;
+                itensDiv.appendChild(itemDiv);
+                total += item.preco;
+            });
+            subtotalDiv.textContent = `Subtotal: R$ ${total.toFixed(2)}`;
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        function toggleCarrinho() {
+            const carrinhoDiv = document.getElementById('carrinho');
+            carrinhoDiv.classList.toggle('aberto');
+        }
+
+        function finalizarCompra() {
+            if (carrinho.length === 0) {
+                alert('Carrinho vazio!');
+            } else {
+                alert(`Compra finalizada! Total: R$ ${carrinho.reduce((sum, item) => sum + item.preco, 0).toFixed(2)}. Em breve, integre com pagamento real (Stripe/PagSeguro).`);
+                carrinho = [];
+                atualizarCarrinho();
+                toggleCarrinho();
+            }
+        }
+
+        // Fechar carrinho clicando fora
+        document.addEventListener('click', (e) => {
+            const carrinhoDiv = document.getElementById('carrinho');
+            const toggleBtn = document.getElementById('toggle-carrinho');
+            if (!carrinhoDiv.contains(e.target) && !toggleBtn.contains(e.target)) {
+                carrinhoDiv.classList.remove('aberto');
+            }
+        });
+    </script>
+</body>
+</html>
