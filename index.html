@@ -18,6 +18,24 @@
                 <h3>Ovo Vermelho Caipira</h3>
                 <p>Dúzia de ovos frescos do interior.</p>
                 <div class="preco">R$ 5,00</div>
+                <button class="btn" onclick="adicionarAoCarrinho('Ovo Vermelho Caipira', 5.00)">Adicionar ao Carrinho</button>
+            </div>
+        </section>
+        <section class="produtos">
+            <div class="card">
+                <img src="./assets/images/ovo branco2.png" alt="Ovo Branco">
+                <h3>Ovo Branco Orgânico</h3>
+                <p>Dúzia orgânica, sem agrotóxicos.</p>
+                <div class="preco">R$ 6,50</div>
+                <button class="btn" onclick="adicionarAoCarrinho('Ovo Branco Orgânico', 6.50)">Adicionar ao Carrinho</button>
+            </div>
+        </section>
+        <section class="produtos">
+            <div class="card">
+                <img src="./assets/images/ovo marrom2.png" alt="Ovo Marrom">
+                <h3>Ovo Marrom Gourmet</h3>
+                <p>Dúzia premium, galinhas soltas.</p>
+                <div class="preco">R$ 7,00</div>
                 <button class="btn" onclick="adicionarAoCarrinho('Ovo Marrom Gourmet', 7.00)">Adicionar ao Carrinho</button>
             </div>
         </section>
@@ -82,7 +100,7 @@
             }
         }
 
-        // Fechar carrinho clicando fora
+        // Fechar carrinho clicando fora (opcional)
         document.addEventListener('click', (e) => {
             const carrinhoDiv = document.getElementById('carrinho');
             const toggleBtn = document.getElementById('toggle-carrinho');
